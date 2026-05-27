@@ -21,8 +21,9 @@ except FileNotFoundError:
     print("Error: Could not find names.csv. Make sure it's in the exact same folder!")
     exit()
 
-# 2. Find and sort the image files numerically
-files = [f for f in os.listdir('.') if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+# 2. Find and sort the image files numerically (IGNORE templates and masks)
+# Added the isdigit() check so it only grabs files like '1.png'
+files = [f for f in os.listdir('.') if f.lower().endswith(('.png', '.jpg', '.jpeg')) and os.path.splitext(f)[0].isdigit()]
 files.sort(key=lambda x: int(os.path.splitext(x)[0]))
 
 # 3. Group files into pairs, rename, and move them
